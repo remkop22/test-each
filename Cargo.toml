@@ -1,0 +1,32 @@
+[package]
+name = "test-each"
+description = "Generate tests at compile-time based on file resources"
+documentation = "https://docs.rs/test-each"
+readme = "README.md"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+repository.workspace = true
+homepage.workspace = true
+license-file.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Remo Pas <remo.pas22@gmail.com>"]
+edition = "2021"
+repository = "https://github.com/remkop22/test-each"
+homepage = "https://github.com/remkop22/test-each"
+license-file = "LICENSE"
+keywords = ["test", "proc-macro", "codegen"]
+categories = ["development-tools::testing", "development-tools::build-utils", "filesystem"]
+
+[lib]
+doctest = false
+
+[workspace]
+members = ["test-each-codegen"]
+
+[dependencies]
+test-each-codegen = { version = "0.1.0", path = "test-each-codegen" }
