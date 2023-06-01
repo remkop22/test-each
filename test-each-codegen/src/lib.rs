@@ -157,7 +157,9 @@ fn test_each(attrs: Attrs, input: ItemFn, kind: Kind) -> Result<TokenStream> {
         };
 
         functions.push(quote! {
+
             #[test]
+            #[allow(non_snake_case)]
             #vis fn #test_name() #ret {
                 #call
             }
