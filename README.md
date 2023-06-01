@@ -9,35 +9,35 @@ This crate contains three attributes that all generate tests based on a file glo
 
 ### Text files
 
-Receive file contents as `&'static str` with `test_each::file`. This ignores any matched directories.
+Receive file contents as [`&'static str`](std::str) with [`test_each::file`](crate::file). This ignores any matched directories.
 
 ```rust
-#[test_each::file("data/*.txt")]
+#[test_each::file(glob = "data/*.txt")]
 fn test_file(content: &str) {
     // check contents
 }
 ```
 
-If data contains the files `foo.txt` and `bar.txt`, the following code will be generated:
+If `data` contains the files `foo.txt` and `bar.txt`, the following code will be generated:
 
 ```rust
 #[test]
-fn test_file_foo_txt_0() {
+fn test_file_foo() {
     test_file(include_str("data/foo.txt"))
 }
 
 #[test]
-fn test_file_bar_txt_1() {
+fn test_file_bar() {
     test_file(include_str("data/bar.txt"))
 }
 ```
 
 ### Binary files
 
-Receive file contents as `&'static [u8]` with `test_each::blob`. This ignores any matched directories.
+Receive file contents as [`&'static [u8]`](std::slice) with [`test_each::blob`](crate::file). This ignores any matched directories.
 
 ```rust
-#[test_each::blob("data/*.bin")]
+#[test_each::blob(glob = "data/*.bin")]
 fn test_bytes(content: &[u8]) {
     // check contents
 }
@@ -46,7 +46,7 @@ fn test_bytes(content: &[u8]) {
 Declare a second parameter in order to additionally receive the path of file.
 
 ```rust
-#[test_each::blob("data/*.bin")]
+#[test_each::blob(glob = "data/*.bin")]
 fn test_bytes(content: &[u8], path: PathBuf) {
     // check contents and path
 }
@@ -54,13 +54,29 @@ fn test_bytes(content: &[u8], path: PathBuf) {
 
 ### Paths to files and directories
 
-Receive file path as `PathBuf` with `test_each::path`. This includes any matched directories.
+Receive file path as [`PathBuf`](std::path::PathBuf) with [`test_each::path`](crate::path). This includes any matched directories.
 
 ```rust
-#[test_each::path("data/*")]
+#[test_each::path(glob = "data/*")]
 fn test_bytes(path: PathBuf) {
     // check path
 }
+```
+
+### Customizing the function name
+
+By default the name of the generated test will consist of the escaped file name without extension. Use the `name` attribute to change how the function names are formatted. 
+
+Use `name(segments = <n>)` to add `n` amount of path segments (from right to left) to the name.
+
+Use `name(index)` to add a unique index to the end of the test name. This will prevent name collisions.
+
+Use `name(extension)` to include the file extension the end of the test name.
+
+```rust
+/// The generated function name will be `test_file_bar_baz_data_txt_0`
+#[test_each::file(glob = "foo/bar/baz/data.txt", name(segments = 3, index, extension))]
+fn test_file(_: &str) {}
 ```
 
 ## Notes
