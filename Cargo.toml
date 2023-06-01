@@ -13,7 +13,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [workspace.package]
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Remo Pas <remo.pas22@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/remkop22/test-each"
@@ -29,4 +29,4 @@ doctest = false
 members = ["test-each-codegen"]
 
 [dependencies]
-test-each-codegen = { version = "0.1.0", path = "test-each-codegen" }
+test-each-codegen = { version = "0.2.0", path = "test-each-codegen" }
