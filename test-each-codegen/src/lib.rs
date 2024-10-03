@@ -146,7 +146,7 @@ fn test_each(attrs: Attrs, input: ItemFn, kind: Kind) -> Result<TokenStream> {
             format_ident!("{}_{}", name, path_name)
         };
 
-        let into_path = quote!(::std::path::PathBuf::from(#path));
+        let into_path = quote!(&::std::path::PathBuf::from(#path));
 
         let call = match kind {
             Kind::File if n_args < 2 => quote!(#name(include_str!(#path))),
