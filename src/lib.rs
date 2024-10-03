@@ -15,10 +15,11 @@
 /// }
 /// ```
 ///
-/// Add a second parameter of type [`PathBuf`](std::path::PathBuf) to receive the path of the file.
+/// Add a second parameter that implements [`AsRef`](std::convert::AsRef)
+/// for [`Path`](std::path::Path) to receive the path of the file.
 /// ```rust
 /// #[test_each::file("data/*.txt")]
-/// fn test_file(content: &str, path: PathBuf) {
+/// fn test_file(content: &str, path: &Path) {
 ///     // test contents
 /// }
 /// ```
@@ -51,10 +52,11 @@ pub use test_each_codegen::test_each_file as file;
 /// }
 /// ```
 ///
-/// Add a second parameter of type [`PathBuf`](std::path::PathBuf) to receive the path of the file.
+/// Add a second parameter that implements [`AsRef`](std::convert::AsRef)
+/// for [`Path`](std::path::Path) to receive the path of the file.
 /// ```rust
 /// #[test_each::blob("data/*.bin")]
-/// fn test_bytes(content: &[u8], path: PathBuf) {
+/// fn test_bytes(content: &[u8], path: &Path) {
 ///     // test contents
 /// }
 /// ```
@@ -82,7 +84,7 @@ pub use test_each_codegen::test_each_blob as blob;
 /// # Usage
 /// ```rust
 /// #[test_each::path("data/*")]
-/// fn test_paths(path: PathBuf) {
+/// fn test_paths(path: &Path) {
 ///     // test contents
 /// }
 /// ```
@@ -97,6 +99,6 @@ pub use test_each_codegen::test_each_blob as blob;
 ///
 /// ```rust
 /// #[test_each::path("data/*.txt", name(segments = 2, extension, index))]
-/// fn test_file(_: PathBuf) {  }
+/// fn test_file(_: &Path) {  }
 /// ```
 pub use test_each_codegen::test_each_path as path;

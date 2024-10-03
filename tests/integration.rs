@@ -1,4 +1,4 @@
-use std::{io::BufRead, path::PathBuf};
+use std::{io::BufRead, path::Path};
 
 #[test_each::file(glob = "tests/data/*.txt", name(index))]
 fn test_file(content: &str) {
@@ -6,7 +6,7 @@ fn test_file(content: &str) {
 }
 
 #[test_each::file(glob = "tests/data/*.txt", name(segments = 2, extension))]
-fn test_file_with_path(content: &str, path: PathBuf) {
+fn test_file_with_path(content: &str, path: &Path) {
     let mut lines = content.lines();
     assert_eq!(Some("hello world"), lines.next());
     assert_eq!(path.file_name().and_then(|s| s.to_str()), lines.next());
@@ -21,7 +21,7 @@ fn test_blob(content: &[u8]) {
 }
 
 #[test_each::path(glob = "tests/data/*.txt")]
-fn test_path(path: PathBuf) {
+fn test_path(path: &Path) {
     match path.file_name().and_then(|s| s.to_str()) {
         Some("foo.txt" | "bar.txt") => {}
         other => panic!("expected either `foo.txt` or `bar.txt` found: {:?}", other),

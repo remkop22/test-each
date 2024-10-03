@@ -47,18 +47,18 @@ Declare a second parameter in order to additionally receive the path of file.
 
 ```rust
 #[test_each::blob(glob = "data/*.bin")]
-fn test_bytes(content: &[u8], path: PathBuf) {
+fn test_bytes(content: &[u8], path: &Path) {
     // check contents and path
 }
 ```
 
 ### Paths to files and directories
 
-Receive file path as [`PathBuf`](std::path::PathBuf) with [`test_each::path`](crate::path). This includes any matched directories.
+Receive file path as a reference to [`Path`](std::path::Path) with [`test_each::path`](crate::path). This includes any matched directories.
 
 ```rust
 #[test_each::path(glob = "data/*")]
-fn test_bytes(path: PathBuf) {
+fn test_bytes(path: &Path) {
     // check path
 }
 ```
